@@ -1,0 +1,89 @@
+﻿@model IEnumerable<ShopThoiTrang.Framework.SanPham>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Products</h2>
+<hr />
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
+</p>
+@*@using (Html.BeginForm("Index", "Sanphams", FormMethod.Get)) // -- phần thay đổi
+{
+<p>
+    Title: @Html.TextBox("SearchString")
+    Category: @Html.DropDownList("field", "All")
+    <input type="submit" value="Search" />
+</p>
+}*@
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.TenSanPham)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Loai.TenLoai)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ThongTin)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Gia)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.SoLuong)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Anh)
+                        </th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="row_@item.MaSanPham">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TenSanPham)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Loai.TenLoai)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ThongTin)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Gia)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SoLuong)
+                            </td>
+                            <td>
+                                <img src="~/Content/ProductImages/@item.Anh" width="120">
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.MaSanPham }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.MaSanPham }) |
+                                @Ajax.ActionLink("Delete", "Delete", new { @id = item.MaSanPham }, new AjaxOptions
+                                                {
+                                               Confirm = "Delete product: " + @item.MaSanPham + " [" + @item.TenSanPham + "] ?",
+                                               OnComplete = "$('#row_" + @item.MaSanPham + "').remove()",
+                                               HttpMethod = "Delete"
+                                                })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

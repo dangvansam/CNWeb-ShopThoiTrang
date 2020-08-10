@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ShopThoiTrang.Framework.Loai>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Category</h2>
+<hr />
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary"})
+</p>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="row_@item.MaLoai">
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TenLoai)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { id = item.MaLoai }) |
+                                @Html.ActionLink("Details", "Details", new { id = item.MaLoai }) |
+                                @Ajax.ActionLink("Delete", "Delete", new { @id = item.MaLoai }, new AjaxOptions
+                                {
+                               Confirm = "Delete category: "+@item.TenLoai+" ?",
+                               OnComplete = "$('#row_" + @item.MaLoai + "').remove()",
+                               HttpMethod = "Delete"
+                           })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
